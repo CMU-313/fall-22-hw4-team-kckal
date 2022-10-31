@@ -1,0 +1,94 @@
+openapi: 3.0.3
+info:
+  title: Prediction API
+  description: |-
+    This is a prediction API for student success based on failures, activities, higher education, study time, G1, and G2
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+paths:
+  /predict:
+    post:
+      tags:
+        - predict
+      summary: Get the prediction result given a set of parameters
+      operationId: getPrediction
+      parameters:
+        - name: failures
+          in: query
+          description: Number of past class failures (n if 1 <= n < 3, else 4)
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            maximum: 4
+        - name: activities
+          in: query
+          description: Whether student has participated in activities
+          required: true
+          schema:
+            type: boolean
+        - name: higher_edu
+          in: query
+          description: Whether student wants to pursue higher education
+          required: true
+          schema:
+            type: boolean
+        - name: studytime
+          in: query
+          description: Length of study time (1 if <2 hours, 2 if 2 to 5 hours, 3 if 5 to 10 hours, 4 if >10 hours)
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            maximum: 4
+        - name: G1
+          in: query
+          description: First period grade (0-20)
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            maximum: 20
+        - name: G2
+          in: query
+          description: Second period grade (0-20)
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            maximum: 20
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns 'Applicant is likely to succeed.' if likely to succeed, else 'Applicant is not likely to succeed.'
+                    example: 'Applicant is likely to succeed.'
+        '400':
+          description: One or more invalid parameter inputs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns 'Missing one or more parameters required.' or 'One or more invalid parameters.'
+                    example: 'Missing one or more parameters required.'
