@@ -4,7 +4,7 @@
 ## Updated Model
 
 ### Features Used
-1. Failures: the number of past class failures (numeric: n if 1<=n<3, else 4)
+1. Failures: the number of past class failures (numeric: n if 0<=n<3, else 4)
 2. Activities: whether the applicant participates in extra-curricular activities (binary: 0 or 1)
 3. Higher Education: whether the applicant wants to take higher education (binary: 0 or 1)
 4. Study Time: the applicant’s weekly study time (numeric: 1 for <2 hours, 2 for 2-5 hours, 3 for 5-10 hours, 4 for >10 hours)
@@ -12,7 +12,7 @@
 6. G2: the second period grade of the applicant (numeric:  0 - 20)
 
 ### Improved Model Performance
-The initial model used age, health, and absences as a predictor for applicant success which had an accuracy of around 0.50.  After selecting new, more relevant features (listed above) to use in our prediction, we trained our model on the provided dataset to generate a prediction of 0 or 1 for applicant success. A model prediction of 1 is generated based on a G3 which must be 15 or higher.
+The initial model used age, health, and absences as a predictor for applicant success which had an accuracy of around 0.50.  After selecting new, more relevant features (listed above) to use in our prediction, we trained our model on the provided dataset to generate a prediction of 0 or 1 for applicant success. The revised model now has an accuracy of around 0.97. A model prediction of 1 (or "Applicant is likely to succeed.") is generated based on a G3 which must be 15 or higher, else a model prediction of 0 (or "Applicant is not likely to succeed.") is generated.
 
 ## pipenv
 
