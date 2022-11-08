@@ -19,22 +19,22 @@ def test_predict_route_success():
     app = Flask(__name__)
     configure_routes(app)
     client = app.test_client()
-    url = '/predict?failures=1&activities=true&higher_edu=true&studytime=4&G1=20&G2=20'
+    url = 'predict?failures=0&activities=1&higher_edu=1&studytime=4&G1=20&G2=20'
 
     response = client.get(url)
     print(response.status_code)
     assert response.status_code == 200
-    #assert response.json['message'] == 'Applicant is likely to succeed.'
+    assert response.json['message'] == 'Applicant is likely to succeed.'
 
 def test_predict_route_success_unlikely():
     app = Flask(__name__)
     configure_routes(app)
     client = app.test_client()
-    url = '/predict?failures=3&activities=false&higher_edu=false&studytime=1&G1=0&G2=0'
+    url = '/predict?failures=0&activities=0&higher_edu=0&studytime=1&G1=5&G2=5'
 
     response = client.get(url)
     assert response.status_code == 200
-    # assert response.json['message'] == 'Applicant is not likely to succeed.'
+    assert response.json['message'] == 'Applicant is not likely to succeed.'
 
 
 def test_predict_route_no_parameters():
