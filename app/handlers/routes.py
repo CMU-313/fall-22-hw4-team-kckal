@@ -62,9 +62,15 @@ def configure_routes(app):
             'higher': pd.Series(higher_edu),
             'studytime': pd.Series(studytime)
         })
+        
         query = pd.get_dummies(query_df)
         # get the prediction
-        prediction = clf.predict(query)
+        prediction = clf.predict(query_df)
+        print(query_df)
+        print("CLF")
+        print(clf)
+        print("PREDICTION")
+        print(np.ndarray.item(prediction))
         if (np.ndarray.item(prediction)):
             return make_response(jsonify({ 'message': 'Applicant is likely to succeed.' }), 200)
         return make_response(jsonify({ 'message': 'Applicant is not likely to succeed.' }), 200)
